@@ -1,76 +1,114 @@
 const express = require('express');
-const Crime = require('../models/crimes');  // Модель для правопорушень
+const Crime = require('../models/crimes'); // Модель для правопорушень
 const path = require('path');
-const User = require('../models/user');    // Модель для користувачів
 const router = express.Router();
+const mongoose = require('mongoose'); // Додаємо mongoose
 
 // Видача сторінки адмін-панелі
-router.get('/admin', async (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/pages/adminAccount.html'));
-  try {
-    const crimes = await Crime.find();
-    res.json(crimes);
-  } catch (err) {
-    res.status(500).json({ message: 'Помилка при отриманні правопорушень' });
-  }
+router.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'adminAccount.html'));
 });
 
-
-// Пошук правопорушень за username
-router.get('/api/crimes/search', async (req, res) => {
-  const { username } = req.query;
-  try {
-    const user = await User.findOne({ username });
-    if (user) {
-      const crimes = await Crime.find({ issuedTo: user.username });
-      res.json(crimes);
-    } else {
-      res.status(404).json({ message: 'Користувач не знайдений' });
-    }
-  } catch (err) {
-    res.status(500).json({ message: 'Помилка при пошуку правопорушень' });
-  }
+// Маршрут для сторінки редагування правопорушення
+router.get('/admin/crimes/edit.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'pages', 'edit.html'));
 });
-
-// Додавання нового правопорушення
-router.post('/admin', async (req, res) => {
+// API для додавання нового правопорушення
+router.post('/admin/crimes', async (req, res) => {
   const { crimeName, issuedTo, issuedBy, crimeDate, penalty } = req.body;
+
   try {
-    const crime = new Crime({ crimeName, issuedTo, issuedBy, crimeDate, penalty });
-    await crime.save();
-    res.status(201).json(crime);
+    // Створюємо нове правопорушення
+    const newCrime = new Crime({
+      crimeName,
+      issuedTo,
+      issuedBy,
+      crimeDate,
+      penalty,
+    });
+
+    // Зберігаємо в базі даних
+    await newCrime.save();
+
+    // Після успішного додавання перенаправляємо на головну сторінку
+    res.redirect('/admin');
   } catch (err) {
-    res.status(500).json({ message: 'Помилка при додаванні правопорушення' });
+    console.error(err);
+    res.status(500).send('Не вдалося додати правопорушення');
   }
 });
 
-// Редагування правопорушення
-router.put('/api/crimes/:id', async (req, res) => {
-  const { id } = req.params;
-  const { crimeName, issuedTo, issuedBy, crimeDate, penalty } = req.body;
+// API для отримання списку всіх правопорушень
+router.get('/admin/crimes', async (req, res) => {
   try {
-    const crime = await Crime.findByIdAndUpdate(id, { crimeName, issuedTo, issuedBy, crimeDate, penalty }, { new: true });
+    const crimes = await Crime.find(); // Отримання всіх правопорушень
+    res.json(crimes); // Повертаємо список у форматі JSON
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Виникла помилка при отриманні даних');
+  }
+});
+
+// API для завантаження даних конкретного правопорушення
+router.get('/admin/crimes/edit/:id', async (req, res) => {
+  const crimeId = req.params.id;
+
+  // Перевірка на валідність ObjectId
+  if (!mongoose.Types.ObjectId.isValid(crimeId)) {
+    return res.status(400).json({ error: 'Невірний ID правопорушення' });
+  }
+
+  try {
+    const crime = await Crime.findById(crimeId);
     if (!crime) {
-      return res.status(404).json({ message: 'Правопорушення не знайдено' });
+      return res.status(404).json({ error: 'Правопорушення не знайдено' });
     }
+
+    // Повертаємо дані правопорушення
     res.json(crime);
   } catch (err) {
-    res.status(500).json({ message: 'Помилка при редагуванні правопорушення' });
+    console.error(err);
+    res.status(500).json({ error: 'Виникла помилка при завантаженні правопорушення' });
   }
 });
 
-// Видалення правопорушення
-router.delete('/api/crimes/:id', async (req, res) => {
-  const { id } = req.params;
+// API для оновлення правопорушення
+router.post('/admin/crimes/edit', async (req, res) => {
+  const { crimeId, crimeName, issuedTo, issuedBy, crimeDate, penalty } = req.body;
+
   try {
-    const crime = await Crime.findByIdAndDelete(id);
-    if (!crime) {
-      return res.status(404).json({ message: 'Правопорушення не знайдено' });
-    }
-    res.status(200).json({ message: 'Правопорушення видалено' });
+    // Оновлення даних правопорушення
+    await Crime.findByIdAndUpdate(crimeId, {
+      crimeName,
+      issuedTo,
+      issuedBy,
+      crimeDate,
+      penalty
+    });
+
+    res.status(200).send('Правопорушення оновлено');
   } catch (err) {
-    res.status(500).json({ message: 'Помилка при видаленні правопорушення' });
+    console.error(err);
+    res.status(500).send('Не вдалося оновити дані правопорушення');
   }
 });
+
+// API для видалення правопорушення
+router.post('/admin/crimes/delete', async (req, res) => {
+  const { crimeId } = req.body;
+
+  try {
+    // Видалення правопорушення за ID
+    await Crime.findByIdAndDelete(crimeId);
+    
+    // Після успішного видалення перенаправляємо назад на сторінку адмін-панелі
+    res.redirect('/admin');
+  } catch (err) {
+    console.error(err);
+    // Якщо сталася помилка, можемо перенаправити на сторінку з повідомленням про помилку
+    res.redirect('/admin?error=true');
+  }
+});
+
 
 module.exports = router;

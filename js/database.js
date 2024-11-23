@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
-const dotnew = require("dotenv");
+require('dotenv').config(); // Імпорт dotenv
 
 // Функція для підключення до бази даних
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/MilitaryCrimes", {
+    const uri = process.env.MONGO_URI; // Отримання URI з .env
+    if (!uri) {
+      throw new Error("MONGO_URI не визначено в .env файлі");
+    }
+
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

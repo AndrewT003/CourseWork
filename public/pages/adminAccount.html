@@ -4,31 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Адмін Панель</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- Ваш стиль -->
+  <link rel="stylesheet" href="/styles.css"> <!-- Стилі -->
 </head>
 <body>
-
   <h1>Управління правопорушеннями</h1>
 
-  <!-- Форма для пошуку правопорушень за username -->
-  <h2>Пошук за username</h2>
-  <input type="text" id="searchInput" placeholder="Введіть username для пошуку" />
-  <button onclick="searchCrimes()">Пошук</button>
-
-  <h2>Додати нове правопорушення</h2>
-  <form id="crimeForm" method="post">
-    <input type="text" id="crimeName" placeholder="Назва правопорушення" required />
-    <input type="text" id="issuedTo" placeholder="Кому видано" required />
-    <input type="text" id="issuedBy" placeholder="Хто видав" required />
-    <input type="date" id="crimeDate" required />
-    <input type="text" id="penalty" placeholder="Накладене стягнення" required />
-    <button type="submit">Додати</button>
-  </form>
+  <!-- Форма для додавання правопорушення -->
+  <section>
+    <h2>Додати нове правопорушення</h2>
+    <form action="/admin/crimes" method="POST">
+      <input type="text" name="crimeName" placeholder="Назва правопорушення" required />
+      <input type="text" name="issuedTo" placeholder="Кому видано" required />
+      <input type="text" name="issuedBy" placeholder="Хто видав" required />
+      <input type="date" name="crimeDate" required />
+      <input type="text" name="penalty" placeholder="Накладене стягнення" required />
+      <button type="submit">Додати</button>
+    </form>
+  </section>
 
   <!-- Список правопорушень -->
-  <h2>Список правопорушень</h2>
-  <ul id="crimeList"></ul>
+  <section>
+    <h2>Список правопорушень</h2>
+    <ul id="crime-list">
+      <!-- Кожен запис міститиме кнопку видалення та редагування -->
+    </ul>
+  </section>
 
-  <script src="/js/admin.js"></script> <!-- Ваш JavaScript -->
+  <script>
+    // Функція для форматування дати у формат день-місяць-рік
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Місяці з 0
+      const year = date.getFullYear();
+      return `${day}.${month}.${year}`;
+    }
+
+    // Завантаження списку правопорушень
+    function loadCrimes() {
+      fetch('/admin/crimes')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('HTTP error ' + response.status);
+          }
+          return response.json();
+        })
+        .then(crimes => {
+          const crimeList = document.getElementById('crime-list');
+          crimeList.innerHTML = '';
+          crimes.forEach(crime => {
+            const listItem = document.createElement('li');
+            const formattedDate = formatDate(crime.crimeDate); // Форматуємо дату
+            listItem.innerHTML = `
+              ${crime.crimeName} - Видано: ${crime.issuedTo}, Видав: ${crime.issuedBy}, Дата: ${formattedDate}, Стягнення: ${crime.penalty}
+              <form action="/admin/crimes/delete" method="POST" style="display:inline;">
+                <input type="hidden" name="crimeId" value="${crime._id}" />
+                <button type="submit">Видалити</button>
+              </form>
+              <button onclick="window.location.href='/admin/crimes/edit.html?crimeId=${crime._id}'">Редагувати</button>
+            `;
+            crimeList.appendChild(listItem);
+          });
+        })
+        .catch(error => console.error('Помилка при завантаженні даних:', error));
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCrimes);
+  </script>
 </body>
 </html>
