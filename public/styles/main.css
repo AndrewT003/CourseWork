@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+body {
+    font-family: 'Playfair Display', serif;
+}
+
+#phoneDiv {
+    background-image: url(../img/BlureMainFone.png);
+    background-size: cover;
+    padding: 15%;
+}
+
+#phoneDiv p {
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+    color: rgb(125, 139, 65);
+}
+
+#aboutUs {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 50px;
+}
+
+#textDiv {
+    display: grid;
+    grid-template-columns: repeat(3, 400px); /* Три колонки шириною 400px */
+    gap: 20px; /* Відступи між колонками */
+    justify-content: center; /* Центрування колонок */
+    margin-top: 50px;
+    width: 100%;
+    background-color: #95bc7d;
+    padding: 20px 0;
+}
+
+#textDiv div {
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+
+.titles {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* Медіа-запити для адаптації на мобільних пристроях */
+@media (max-width: 1200px) {
+    #textDiv {
+        grid-template-columns: repeat(2, 1fr); /* Дві колонки на екранах середнього розміру */
+    }
+
+    #phoneDiv p {
+        font-size: 50px; /* Зменшення шрифту на екранах середнього розміру */
+    }
+
+    #aboutUs {
+        font-size: 40px; /* Зменшення шрифту на екранах середнього розміру */
+    }
+}
+
+@media (max-width: 768px) {
+    #textDiv {
+        grid-template-columns: 1fr; /* Одна колонка на мобільних пристроях */
+    }
+
+    #phoneDiv p {
+        font-size: 40px; /* Зменшення шрифту на мобільних пристроях */
+    }
+
+    #aboutUs {
+        font-size: 35px; /* Зменшення шрифту на мобільних пристроях */
+    }
+}
+
+@media (max-width: 480px) {
+    #phoneDiv p {
+        font-size: 35px; /* Зменшення шрифту на дуже малих екранах */
+    }
+
+    #aboutUs {
+        font-size: 30px; /* Зменшення шрифту на дуже малих екранах */
+    }
+}

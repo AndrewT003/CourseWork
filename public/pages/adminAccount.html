@@ -4,64 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Адмін Панель</title>
-  <link rel="stylesheet" href="/styles.css"> <!-- Стилі -->
+  <link rel="stylesheet" href="../styles/footer.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/adminAccount.css">
 </head>
 <body>
+  <header>
+    <a href="/"><img id="VSPimg" src="../img/VSP.png" height="70px" alt=""></a>
+    <p>ВІЙСЬКОВА СЛУЖБА ПРАВОПОРЯДКУ</p> 
+    <div id="container">
+      <img id="avatar" height="50px" src="../img/user.png"  alt="">
+      <a class="links" href="/login">Увійти</a>  
+      <a class="links" href="/register">Зареєструватися</a>
+    </div>
+  </header>
+
   <h1>Управління правопорушеннями</h1>
 
+  <!-- Форма для пошуку правопорушень -->
+   <div id="searchForm">
+     <section>
+       <h2>Пошук правопорушень</h2>
+       <input type="text" id="search-input" placeholder="Введіть username" />
+       <button onclick="searchCrimes()">Шукати</button>
+       <ul id="search-results"></ul>
+     </section>
+   </div>
   <!-- Форма для додавання правопорушення -->
-  <section>
-    <h2>Додати нове правопорушення</h2>
-    <form action="/admin/crimes" method="POST">
-      <input type="text" name="crimeName" placeholder="Назва правопорушення" required />
-      <input type="text" name="issuedTo" placeholder="Кому видано" required />
-      <input type="text" name="issuedBy" placeholder="Хто видав" required />
-      <input type="date" name="crimeDate" required />
-      <input type="text" name="penalty" placeholder="Накладене стягнення" required />
-      <button type="submit">Додати</button>
-    </form>
-  </section>
+  <form action="/admin/crimes" method="POST">
+    <input type="text" name="crimeName" placeholder="Назва правопорушення" required />
+    <input type="text" name="issuedTo" placeholder="Кому видано" required />
+    <input type="text" name="issuedBy" placeholder="Хто видав" required />
+    <input type="date" name="crimeDate" required />
+    <input type="text" name="penalty" placeholder="Накладене стягнення" required />
+    <button type="submit">Додати</button>
+  </form>
+
 
   <!-- Список правопорушень -->
   <section>
     <h2>Список правопорушень</h2>
     <ul id="crime-list">
-      <!-- Кожен запис міститиме кнопку видалення та редагування -->
+      <!-- Тут будуть з'являтися правопорушення -->
     </ul>
   </section>
+  
+  <footer>
+    <p>КОНТАКТИ</p>
+    <p>E-mail: admou@post.mil.gov.ua</p>
+    <p>+380442936054</p>
+    <img height="70px" src="../img/MinDef.png" alt="">
+  </footer>
 
   <script>
     // Функція для форматування дати у формат день-місяць-рік
     function formatDate(dateString) {
       const date = new Date(dateString);
       const day = String(date.getDate()).padStart(2, '0');
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Місяці з 0
+      const month = String(date.getMonth() + 1).padStart(2, '0');
       const year = date.getFullYear();
       return `${day}.${month}.${year}`;
     }
 
     // Завантаження списку правопорушень
-    function loadCrimes() {
-      fetch('/admin/crimes')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('HTTP error ' + response.status);
-          }
-          return response.json();
-        })
+    function loadCrimes(query = '') {
+      fetch(`/admin/crimes?search=${query}`)
+        .then(response => response.json())
         .then(crimes => {
           const crimeList = document.getElementById('crime-list');
           crimeList.innerHTML = '';
           crimes.forEach(crime => {
             const listItem = document.createElement('li');
-            const formattedDate = formatDate(crime.crimeDate); // Форматуємо дату
+            const formattedDate = formatDate(crime.crimeDate);
             listItem.innerHTML = `
               ${crime.crimeName} - Видано: ${crime.issuedTo}, Видав: ${crime.issuedBy}, Дата: ${formattedDate}, Стягнення: ${crime.penalty}
               <form action="/admin/crimes/delete" method="POST" style="display:inline;">
                 <input type="hidden" name="crimeId" value="${crime._id}" />
                 <button type="submit">Видалити</button>
               </form>
-              <button onclick="window.location.href='/admin/crimes/edit.html?crimeId=${crime._id}'">Редагувати</button>
+              <button onclick="window.location.href='/admin/crimes/edit/${crime._id}'">Редагувати</button>
             `;
             crimeList.appendChild(listItem);
           });
@@ -69,7 +90,46 @@
         .catch(error => console.error('Помилка при завантаженні даних:', error));
     }
 
-    document.addEventListener('DOMContentLoaded', loadCrimes);
+    // Функція для пошуку правопорушень
+  function searchCrimes() {
+    const searchInput = document.getElementById('search-input').value.trim();
+    const searchResults = document.getElementById('search-results');
+
+    // Очищуємо список результатів, якщо поле порожнє
+    if (!searchInput) {
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    fetch(`/admin/crimes/search?username=${encodeURIComponent(searchInput)}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('HTTP error ' + response.status);
+        }
+        return response.json();
+      })
+      .then(crimes => {
+        searchResults.innerHTML = ''; // Очищуємо попередні результати
+
+        if (crimes.length === 0) {
+          // Якщо нічого не знайдено
+          searchResults.innerHTML = '<li>Нічого не знайдено</li>';
+        } else {
+          // Додаємо знайдені правопорушення до списку
+          crimes.forEach(crime => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${crime.crimeName} - Видано: ${crime.issuedTo}, Дата: ${new Date(crime.crimeDate).toLocaleDateString()}, Стягнення: ${crime.penalty}`;
+            searchResults.appendChild(listItem);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Помилка при пошуку даних:', error);
+        searchResults.innerHTML = '<li>Помилка при пошуку</li>';
+      });
+  }
+
+    document.addEventListener('DOMContentLoaded', () => loadCrimes());
   </script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Особистий Кабінет</title>
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/userAccont.css">
+
+</head>
+<body>
+    <header>
+        <a href="/"><img id="VSPimg" src="../img/VSP.png" height="70px" alt=""></a>
+        <p>ВІЙСЬКОВА СЛУЖБА ПРАВОПОРЯДКУ</p> 
+        <div id="container">
+            <img id="avatar" height="50px" src="../img/user.png" alt="">
+            <p class="links">Ім'я: <%= user.username %></p>  <!-- Виводимо ім'я користувача за полем 'username' -->
+        </div>
+    </header>
+
+    <div id="crimesDiv">
+        <h2>Ваші правопорушення:</h2>
+        <% if (crimes.length === 0) { %>  <!-- Перевіряємо, чи є правопорушення -->
+            <p id="message-text">На даний момент правопорушень немає.</p> <!-- Повідомлення, якщо правопорушення відсутні -->
+        <% } else { %>
+            <ul>
+                <% crimes.forEach(crime => { %>
+                    <li>
+                        <%= crime.crimeName %> - Видано: <%= crime.issuedTo %>, Дата: <%= new Date(crime.crimeDate).toLocaleDateString() %>, Стягнення: <%= crime.penalty %>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </div>
+
+    <footer>  
+        <p>КОНТАКТИ</p>
+        <p>E-mail: admou@post.mil.gov.ua</p>
+        <p>+380442936054</p>
+        <img height="70px" src="../img/MinDef.png" alt=""/>
+    </footer>
+</body>
+</html>

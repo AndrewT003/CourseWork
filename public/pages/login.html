@@ -4,16 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Вхід</title>
+  <link rel="stylesheet" href="../styles/footer.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/login.css">
 </head>
 <body>
-  <h1>Авторизація</h1>
-  <form action="/login" method="POST">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" name="password" required><br><br>
-    <button type="submit">Увійти</button>
-  </form>
-  <a href="/">На головну</a>
+  <header>
+    <a href="/"><img id="VSPimg" src="../img/VSP.png" height="70px" alt=""></a>
+    <p>ВІЙСЬКОВА СЛУЖБА ПРАВОПОРЯДКУ</p> 
+    <div id="container">
+      <img id="avatar" height="50px" src="../img/user.png"  alt="">
+      <a class="links" href="/login">Увійти</a>  
+      <a class="links" href="/register">Зареєструватися</a>
+    </div>
+  </header>
+  <div id="mainDiv">
+    <div id="authDiv">
+      <h1>АВТОРИЗУВАТИСЯ</h1>
+      <form action="/login" method="POST">
+        <label for="email">EMAIL</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <label for="password">ПАРОЛЬ</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">Увійти</button>
+      </form>
+      <a href="/">НА ГОЛОВНУ</a>
+    </div>
+  </div>  
+  <footer>
+    <p>КОНТАКТИ</p>
+    <p>E-mail: admou@post.mil.gov.ua</p>
+    <p>+380442936054</p>
+    <img height="70px" src="../img/MinDef.png" alt="">
+  </footer>
 </body>
 </html>

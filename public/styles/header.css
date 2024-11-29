@@ -1,0 +1,64 @@
+header {
+    background-color: rgb(80, 80, 80);
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+header p {
+    color: white;
+    font-size: 25px;
+    margin-left: 11%;
+}
+
+#avatar {
+    margin-right: 10px;
+}
+
+.links {
+    font-size: 15px;
+    margin-right: 10px;
+    color: white;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+}
+
+#VSPimg {
+    margin-left: 10px;
+}
+
+/* Адаптивність для малих екранів */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Розміщає елементи по вертикалі */
+        align-items: center; /* Центрує елементи */
+        text-align: center; /* Центрує текст */
+    }
+
+    header p {
+        font-size: 20px; /* Зменшуємо шрифт на малих екранах */
+        margin-left: 0; /* Прибираємо лівий відступ */
+    }
+
+    #container {
+        justify-content: center; /* Центруємо елементи в контейнері */
+        gap: 10px; /* Відстань між елементами */
+        margin-bottom: 20px;
+    }
+
+    #VSPimg {
+        margin-left: 0; /* Прибираємо лівий відступ */
+    }
+
+    .links {
+        font-size: 14px; /* Зменшуємо розмір шрифта для посилань */
+        margin-right: 0; /* Прибираємо правий відступ */
+    }
+}

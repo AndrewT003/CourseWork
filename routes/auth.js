@@ -10,11 +10,6 @@ router.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/pages/register.html'));
 });
 
-// Видача сторінки входу
-router.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/pages/login.html'));
-});
-
 // Реєстрація нового користувача
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
@@ -69,7 +64,11 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Авторизація користувача
+// Видача сторінки входу
+router.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/pages/login.html'));
+});
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -94,14 +93,15 @@ router.post('/login', async (req, res) => {
       `);
     }
 
-    // Створення JWT
-    const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Зберігаємо userId та роль в сесії
+    req.session.userId = user._id;
+    req.session.role = user.role;
 
-    // Відповідь і редирект на відповідну сторінку залежно від ролі
+    // Відповідно до ролі перенаправляємо користувача
     if (user.role === 'admin') {
-      res.redirect('/admin'); // Сторінка адміністрування
+      res.redirect('/admin');
     } else {
-      res.redirect('/user'); // Сторінка звичайного користувача
+      res.redirect('/user');
     }
   } catch (error) {
     res.send(`
@@ -112,5 +112,6 @@ router.post('/login', async (req, res) => {
     `);
   }
 });
+
 
 module.exports = router;

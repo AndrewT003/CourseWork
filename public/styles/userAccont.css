@@ -1,0 +1,93 @@
+/* Загальні стилі */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+body {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f0f0; /* Фоновий колір для тіла */
+}
+/* Заголовки */
+h2 {
+    text-align: center;
+    color: #003366;
+}
+
+/* Стиль для списку правопорушень */
+ul {
+    text-align: center;
+    list-style: none; /* Забираємо маркери списку */
+    padding: 0;
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+li {
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+li p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+li span {
+    font-weight: bold;
+}
+#crimesDiv {
+    flex-grow: 1;
+}
+#message-text{
+    text-align: center;
+}
+
+
+/* Стилі для кнопок */
+button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #003366;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #00509e;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    #container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #container p {
+        text-align: center;
+    }
+
+    ul {
+        width: 95%;
+    }
+
+    button {
+        width: 90%;
+    }
+
+    footer {
+        padding: 15px;
+    }
+}

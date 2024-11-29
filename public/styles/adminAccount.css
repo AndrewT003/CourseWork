@@ -1,0 +1,200 @@
+/* Загальні стилі */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+body {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  #container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  #container img {
+    border-radius: 50%;
+  }
+  
+  .links {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  
+  .links:hover {
+    text-decoration: underline;
+  }
+  
+  /* Заголовки */
+  h1, h2 {
+    text-align: center;
+  }
+  
+  /* Форми */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  form input, form button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form button {
+    background-color: #003366;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #00509e;
+  }
+  
+  /* Секції */
+  section {
+    margin: 20px;
+  }
+  
+/* Центрування форми */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+  
+  .search-form input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .search-form button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #003366;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .search-form button:hover {
+    background-color: #00509e;
+  }
+
+  #searchForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #003366;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  /* Стиль для списку правопорушень */
+.crime-list-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  #crime-list {
+  list-style: none; /* Забираємо маркери списку */
+  padding: 0;
+  margin: 0 auto;
+  width: 80%; /* Встановлюємо ширину списку */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.crime-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Розтягуємо блок на всю ширину */
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.crime-info {
+  flex-grow: 1; /* Контент займає доступний простір */
+  text-align: left; /* Текст вирівнюється по лівому краю */
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px; /* Відстань між кнопками */
+}
+
+.action-buttons button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.action-buttons button:hover {
+  opacity: 0.8;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.edit-btn {
+  background-color: #3498db;
+  color: #fff;
+}
+  
+  
+  
+  /* Адаптивність */
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+  
+    #container {
+      justify-content: center;
+    }
+  
+    form {
+      width: 90%;
+    }
+  
+    #search-input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  

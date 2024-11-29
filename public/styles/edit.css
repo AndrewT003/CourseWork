@@ -1,0 +1,87 @@
+/* Загальні стилі */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+body {
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Стилі для заголовків */
+h1, h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Форма редагування */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+form input, form button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+form button {
+  background-color: #003366;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #00509e;
+}
+
+/* Кнопка "Назад до списку" */
+a button {
+  padding: 10px;
+  background-color: #003366;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px auto;
+  display: block;
+}
+
+a button:hover {
+  background-color: #00509e;
+}
+
+/* Заголовки полів */
+form p {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  #container {
+    justify-content: center;
+  }
+
+  form {
+    width: 90%;
+  }
+
+  #search-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
