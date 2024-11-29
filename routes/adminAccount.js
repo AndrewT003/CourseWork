@@ -23,6 +23,19 @@ router.get('/admin/crimes/edit/:crimeId', async (req, res) => {
     res.status(500).send('Помилка сервера');
   }
 });
+router.post('/admin/crimes', async (req, res) => {
+  const { crimeName, issuedTo, issuedBy, crimeDate, penalty } = req.body;
+
+  try {
+    const newCrime = new Crime({ crimeName, issuedTo, issuedBy, crimeDate, penalty });
+    await newCrime.save();
+    res.redirect('/admin'); 
+  } catch (err) {
+    console.error('Помилка при додаванні правопорушення:', err);
+    res.status(500).send('Не вдалося додати правопорушення');
+  }
+});
+
 
 router.post('/admin/crimes/edit', async (req, res) => {
   const { crimeId, crimeName, issuedTo, issuedBy, crimeDate, penalty } = req.body;
