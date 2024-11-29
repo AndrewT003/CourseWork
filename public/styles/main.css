@@ -26,9 +26,9 @@ body {
 
 #textDiv {
     display: grid;
-    grid-template-columns: repeat(3, 400px); /* Три колонки шириною 400px */
-    gap: 20px; /* Відступи між колонками */
-    justify-content: center; /* Центрування колонок */
+    grid-template-columns: repeat(3, 400px); 
+    gap: 20px; 
+    justify-content: center; 
     margin-top: 50px;
     width: 100%;
     background-color: #95bc7d;
@@ -48,41 +48,41 @@ body {
     font-weight: bold;
 }
 
-/* Медіа-запити для адаптації на мобільних пристроях */
 @media (max-width: 1200px) {
     #textDiv {
-        grid-template-columns: repeat(2, 1fr); /* Дві колонки на екранах середнього розміру */
+        grid-template-columns: repeat(2, 1fr); 
     }
 
     #phoneDiv p {
-        font-size: 50px; /* Зменшення шрифту на екранах середнього розміру */
+        font-size: 50px; 
     }
 
     #aboutUs {
-        font-size: 40px; /* Зменшення шрифту на екранах середнього розміру */
+        font-size: 40px; 
     }
 }
 
 @media (max-width: 768px) {
     #textDiv {
-        grid-template-columns: 1fr; /* Одна колонка на мобільних пристроях */
+        grid-template-columns: 1fr; 
     }
 
     #phoneDiv p {
-        font-size: 40px; /* Зменшення шрифту на мобільних пристроях */
+        font-size: 40px; 
     }
 
     #aboutUs {
-        font-size: 35px; /* Зменшення шрифту на мобільних пристроях */
+        font-size: 35px; 
     }
 }
 
 @media (max-width: 480px) {
     #phoneDiv p {
-        font-size: 35px; /* Зменшення шрифту на дуже малих екранах */
+      
+        font-size: 35px; 
     }
 
     #aboutUs {
-        font-size: 30px; /* Зменшення шрифту на дуже малих екранах */
+        font-size: 30px; 
     }
 }

@@ -13,19 +13,18 @@ footer p {
     font-size: 20px;
 }
 
-/* Адаптивність для малих екранів */
 @media (max-width: 768px) {
     footer {
-        flex-direction: column; /* Розміщає елементи футера по вертикалі */
-        justify-content: center; /* Центрує елементи */
-        padding-left: 20px; /* Менший відступ для мобільних пристроїв */
-        padding-right: 20px; /* Менший відступ для мобільних пристроїв */
-        height: auto; /* Динамічна висота, щоб футер міг адаптуватися до контенту */
-        text-align: center; /* Центруємо текст */
+        flex-direction: column; 
+        justify-content: center; 
+        padding-left: 20px; 
+        padding-right: 20px; 
+        height: auto; 
+        text-align: center; 
     }
 
     footer p {
-        font-size: 18px; /* Зменшуємо шрифт на мобільних пристроях */
-        margin: 5px 0; /* Додаємо відступи між абзацами */
+        font-size: 18px; 
+        margin: 5px 0; 
     }
 }

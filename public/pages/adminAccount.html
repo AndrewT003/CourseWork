@@ -21,7 +21,6 @@
 
   <h1>Управління правопорушеннями</h1>
 
-  <!-- Форма для пошуку правопорушень -->
    <div id="searchForm">
      <section>
        <h2>Пошук правопорушень</h2>
@@ -30,7 +29,6 @@
        <ul id="search-results"></ul>
      </section>
    </div>
-  <!-- Форма для додавання правопорушення -->
   <form action="/admin/crimes" method="POST">
     <input type="text" name="crimeName" placeholder="Назва правопорушення" required />
     <input type="text" name="issuedTo" placeholder="Кому видано" required />
@@ -41,11 +39,10 @@
   </form>
 
 
-  <!-- Список правопорушень -->
   <section>
     <h2>Список правопорушень</h2>
     <ul id="crime-list">
-      <!-- Тут будуть з'являтися правопорушення -->
+      
     </ul>
   </section>
   
@@ -57,7 +54,6 @@
   </footer>
 
   <script>
-    // Функція для форматування дати у формат день-місяць-рік
     function formatDate(dateString) {
       const date = new Date(dateString);
       const day = String(date.getDate()).padStart(2, '0');
@@ -66,7 +62,6 @@
       return `${day}.${month}.${year}`;
     }
 
-    // Завантаження списку правопорушень
     function loadCrimes(query = '') {
       fetch(`/admin/crimes?search=${query}`)
         .then(response => response.json())
@@ -90,12 +85,10 @@
         .catch(error => console.error('Помилка при завантаженні даних:', error));
     }
 
-    // Функція для пошуку правопорушень
   function searchCrimes() {
     const searchInput = document.getElementById('search-input').value.trim();
     const searchResults = document.getElementById('search-results');
 
-    // Очищуємо список результатів, якщо поле порожнє
     if (!searchInput) {
       searchResults.innerHTML = '';
       return;
@@ -109,13 +102,11 @@
         return response.json();
       })
       .then(crimes => {
-        searchResults.innerHTML = ''; // Очищуємо попередні результати
+        searchResults.innerHTML = ''; 
 
         if (crimes.length === 0) {
-          // Якщо нічого не знайдено
           searchResults.innerHTML = '<li>Нічого не знайдено</li>';
         } else {
-          // Додаємо знайдені правопорушення до списку
           crimes.forEach(crime => {
             const listItem = document.createElement('li');
             listItem.textContent = `${crime.crimeName} - Видано: ${crime.issuedTo}, Дата: ${new Date(crime.crimeDate).toLocaleDateString()}, Стягнення: ${crime.penalty}`;

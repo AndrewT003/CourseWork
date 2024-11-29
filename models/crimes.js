@@ -1,24 +1,23 @@
-// models/crime.js
 const mongoose = require('mongoose');
 
 const crimeSchema = new mongoose.Schema({
-  crimeName: {  // Назва правопорушення
+  crimeName: {  
     type: String,
     required: true,
   },
-  issuedTo: { // Кому видано
+  issuedTo: { 
     type: String,
     required: true,
   },
-  issuedBy: { // Хто видав
+  issuedBy: { 
     type: String,
     required: true,
   },
-  crimeDate: { // Дата правопорушення
+  crimeDate: { 
     type: Date,
     required: true,
   },
-  penalty: { // Накладене стягнення
+  penalty: { 
     type: String,
     required: true,
   },

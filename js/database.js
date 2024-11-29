@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
-require('dotenv').config(); // Імпорт dotenv
+require('dotenv').config(); 
 
-// Функція для підключення до бази даних
 const connectDB = async () => {
   try {
-    const uri = process.env.MONGO_URI; // Отримання URI з .env
+    const uri = process.env.MONGO_URI; 
     if (!uri) {
       throw new Error("MONGO_URI не визначено в .env файлі");
     }
@@ -16,7 +15,7 @@ const connectDB = async () => {
     console.log('Успішно підключено до бази даних MongoDB');
   } catch (error) {
     console.error('Помилка підключення до бази даних:', error.message);
-    process.exit(1); // Завершити процес у разі помилки
+    process.exit(1); 
   }
 };
 

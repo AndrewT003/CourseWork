@@ -1,4 +1,3 @@
-/* Загальні стилі */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 body {
   font-family: 'Playfair Display', serif;
@@ -8,13 +7,11 @@ body {
   min-height: 100vh;
 }
 
-/* Стилі для заголовків */
 h1, h2 {
   text-align: center;
   margin-top: 20px;
 }
 
-/* Форма редагування */
 form {
   display: flex;
   flex-direction: column;
@@ -41,7 +38,6 @@ form button:hover {
   background-color: #00509e;
 }
 
-/* Кнопка "Назад до списку" */
 a button {
   padding: 10px;
   background-color: #003366;
@@ -57,14 +53,12 @@ a button:hover {
   background-color: #00509e;
 }
 
-/* Заголовки полів */
 form p {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
 
-/* Адаптивність */
 @media (max-width: 768px) {
   header {
     flex-direction: column;

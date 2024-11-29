@@ -5,12 +5,10 @@ const path = require('path');
 const User = require('../models/user');
 const router = express.Router();
 
-// Видача сторінки реєстрації
 router.get('/register', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/pages/register.html'));
 });
 
-// Реєстрація нового користувача
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -41,12 +39,11 @@ router.post('/register', async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      role: 'user', // Встановлюємо роль за замовчуванням
+      role: 'user', 
     });
 
     await newUser.save();
 
-    // Показуємо повідомлення про успіх і редирект на сторінку входу
     res.send(`
       <script>
         alert('Реєстрація успішна! Тепер ви можете увійти.');
@@ -64,7 +61,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Видача сторінки входу
 router.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/pages/login.html'));
 });
@@ -93,11 +89,9 @@ router.post('/login', async (req, res) => {
       `);
     }
 
-    // Зберігаємо userId та роль в сесії
     req.session.userId = user._id;
     req.session.role = user.role;
 
-    // Відповідно до ролі перенаправляємо користувача
     if (user.role === 'admin') {
       res.redirect('/admin');
     } else {

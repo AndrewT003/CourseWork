@@ -15,14 +15,14 @@
         <p>ВІЙСЬКОВА СЛУЖБА ПРАВОПОРЯДКУ</p> 
         <div id="container">
             <img id="avatar" height="50px" src="../img/user.png" alt="">
-            <p class="links">Ім'я: <%= user.username %></p>  <!-- Виводимо ім'я користувача за полем 'username' -->
+            <p class="links">Ім'я: <%= user.username %></p> 
         </div>
     </header>
 
     <div id="crimesDiv">
         <h2>Ваші правопорушення:</h2>
-        <% if (crimes.length === 0) { %>  <!-- Перевіряємо, чи є правопорушення -->
-            <p id="message-text">На даний момент правопорушень немає.</p> <!-- Повідомлення, якщо правопорушення відсутні -->
+        <% if (crimes.length === 0) { %>  
+            <p id="message-text">На даний момент правопорушень немає.</p> 
         <% } else { %>
             <ul>
                 <% crimes.forEach(crime => { %>

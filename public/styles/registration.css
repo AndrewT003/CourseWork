@@ -1,54 +1,50 @@
-/* Основний контейнер */
 #mainDiv {
     background-image: url(../img/BlureMainFone.png);
     background-size: cover;
     background-position: center;
-    display: flex; /* Використання Flexbox */
-    align-items: center; /* Центрування по вертикалі */
-    justify-content: center; /* Центрування по горизонталі */
-    height: 100vh; /* Висота на весь екран */
-    margin: 0; /* Забираємо відступи сторінки */
-    overflow: hidden; /* Прибираємо скрол */
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100vh; 
+    margin: 0; 
+    overflow: hidden; 
   }
   
-  /* Напівпрозорий блок */
   #regDiv {
-    background-color: rgba(255, 255, 255, 0.8); /* Білий фон з прозорістю */
-    padding: 30px 40px; /* Відступи всередині */
-    border-radius: 10px; /* Закруглені краї */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Легкий тіньовий ефект */
-    text-align: center; /* Центрування тексту всередині */
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 30px 40px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    text-align: center; 
     width: 100%;
-    max-width: 400px; /* Максимальна ширина */
+    max-width: 400px; 
   }
   
-  /* Форма */
   form {
     display: flex;
-    flex-direction: column; /* Елементи розташовані вертикально */
-    gap: 15px; /* Відступи між елементами форми */
+    flex-direction: column; 
+    gap: 15px; 
   }
   
   form input,
   form button {
-    width: 100%; /* Поля займають всю ширину */
-    padding: 10px; /* Відступи всередині полів */
-    font-size: 16px; /* Розмір тексту */
-    border: 1px solid #ccc; /* Границя */
-    border-radius: 5px; /* Закруглені краї */
+    width: 100%; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
     margin-bottom: 20px;
   }
   label{
     font-size: 20px;
   }
   
-  /* Кнопка */
   form button {
-    background-color: #28a745; /* Зелений фон */
-    color: white; /* Білий текст */
-    border: none; /* Без рамки */
-    cursor: pointer; /* Вказівник при наведенні */
-    font-weight: bold; /* Жирний текст */
+    background-color: #28a745; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    font-weight: bold; 
   }
   #regDiv a{
     color: black;
@@ -57,7 +53,7 @@
   
   
   form button:hover {
-    background-color: #218838; /* Темніший зелений при наведенні */
+    background-color: #218838; 
   }
   
   

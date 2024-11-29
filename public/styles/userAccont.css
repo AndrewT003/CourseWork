@@ -51,7 +51,6 @@ li span {
 }
 
 
-/* Стилі для кнопок */
 button {
     padding: 10px;
     font-size: 1rem;
@@ -68,7 +67,6 @@ button:hover {
     background-color: #00509e;
 }
 
-/* Адаптивність */
 @media (max-width: 768px) {
     #container {
         flex-direction: column;
